@@ -4,23 +4,20 @@
 #include <stdlib.h>
 
 char ** parse_args(char * line) {
-    printf("HERE");
-    char ** parsed_args = malloc(sizeof(char *) * 5);
-    char * args = line;
-    printf("LINE: %s", line);
-    args = strsep(&args," ");
-    
-    //while(line++) {
-    //}
-    printf("[%s]\n", args);
+    char ** parsed_args = calloc(5, sizeof(char **));
+    char * p = line;
+    int index = 0;
+    while(p != NULL) {
+        parsed_args[index] = strsep(&p, " ");
+        index++; 
+    }
+        
     return parsed_args;
-
-
 }
 
 int main() {
-    printf("HEREEE\n");
-    char ** p = parse_args("ls -l --all --color");
+    char line[100] = "ls -l --all --color"; 
+    char ** p = parse_args(line);
     execvp(p[0], p);
     return 0;
 }
